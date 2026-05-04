@@ -1,0 +1,238 @@
+:root {
+  --bg: #0e1116;
+  --panel: #161a22;
+  --panel-2: #1f2530;
+  --text: #e6e9ef;
+  --muted: #8a93a3;
+  --accent: #f4a261;
+  --border: #262d3a;
+
+  --topbar-h: 52px;
+  --legend-w: 280px;
+  --footer-h: 28px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden;
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--topbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  z-index: 10;
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.brand-mark {
+  font-size: 20px;
+}
+.brand-name {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.brand-tag {
+  color: var(--muted);
+  font-size: 12px;
+}
+@media (max-width: 720px) {
+  .brand-tag {
+    display: none;
+  }
+}
+
+.icon-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.icon-btn:hover {
+  background: var(--panel-2);
+}
+
+#map {
+  position: fixed;
+  top: var(--topbar-h);
+  left: 0;
+  right: var(--legend-w);
+  bottom: var(--footer-h);
+}
+@media (max-width: 720px) {
+  #map {
+    right: 0;
+  }
+}
+
+.legend {
+  position: fixed;
+  top: var(--topbar-h);
+  right: 0;
+  bottom: var(--footer-h);
+  width: var(--legend-w);
+  padding: 16px;
+  background: var(--panel);
+  border-left: 1px solid var(--border);
+  overflow-y: auto;
+  z-index: 5;
+}
+@media (max-width: 720px) {
+  .legend {
+    transform: translateX(100%);
+    transition: transform 0.2s ease;
+    width: 100%;
+  }
+  .legend.open {
+    transform: translateX(0);
+  }
+}
+
+.legend h2 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin: 16px 0 8px;
+}
+.legend h2:first-child {
+  margin-top: 0;
+}
+
+.layer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.layer-list li {
+  margin: 4px 0;
+}
+.layer-list label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+.layer-list label:hover {
+  background: var(--panel-2);
+}
+.layer-list input {
+  accent-color: var(--accent);
+}
+
+.swatch {
+  display: inline-block;
+  width: 22px;
+  height: 4px;
+  border-radius: 2px;
+  background: currentColor;
+  flex-shrink: 0;
+}
+.swatch--substation {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffd166;
+  border: 1px solid #c89a3d;
+}
+.swatch--generation {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: #ef476f;
+  border: 1px solid #b73357;
+}
+
+.meta-line {
+  margin-top: 24px;
+  font-size: 11px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+
+.attrib {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--footer-h);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  background: var(--panel);
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--muted);
+  z-index: 6;
+}
+.attrib a {
+  color: var(--muted);
+  text-decoration: underline;
+}
+.attrib a:hover {
+  color: var(--text);
+}
+
+/* MapLibre popup styling override */
+.maplibregl-popup-content {
+  background: var(--panel-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 14px;
+  font: 13px/1.4 system-ui, sans-serif;
+}
+.maplibregl-popup-tip {
+  border-top-color: var(--panel-2) !important;
+  border-bottom-color: var(--panel-2) !important;
+}
+.popup-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.popup-row {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.popup-row b {
+  color: var(--text);
+  font-weight: 500;
+}
+.popup-source {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--muted);
+}

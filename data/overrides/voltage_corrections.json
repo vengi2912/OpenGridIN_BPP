@@ -1,0 +1,3 @@
+{
+  "$schema_comment": "Map of OSM way ID (string) -> corrected voltage in volts (number). See README.md."
+}

@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+.eggs/
+*.egg-info/
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# uv / pip
+.python-version
+pip-log.txt
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build pipeline working dirs (keep `site/data/` committed; these are scratch)
+pipeline/.cache/
+pipeline/output_raw/
+pipeline/pypsa-earth-clone/
+*.nc.tmp
+
+# Node (in case site/ ever gets a build step)
+node_modules/
+dist/
+.parcel-cache/
+
+# Logs
+*.log
+
+# Local Claude Code session settings (personal allowlist, paths)
+.claude/
