@@ -1,6 +1,6 @@
-"""Overpass API queries for Pakistan transmission infrastructure.
+"""Overpass API queries for India transmission infrastructure.
 
-We do ONE country-wide query for power=line / minor_line / cable in PK, then
+We do ONE country-wide query for power=line / minor_line / cable in IN, then
 bucket by voltage in Python (see merge.py + voltage_parser.py). This is more
 robust than per-voltage Overpass regex queries because OSM tagging is
 inconsistent (units, typos, semicolons). It also lets us see lines without
@@ -41,7 +41,7 @@ class OverpassResult:
 
 
 def query_all_lines_pk() -> OverpassResult:
-    """Fetch every power line / minor_line / cable way in Pakistan.
+    """Fetch every power line / minor_line / cable way in India.
 
     Voltage is NOT filtered server-side; we bucket in Python afterwards.
     """
@@ -49,7 +49,7 @@ def query_all_lines_pk() -> OverpassResult:
 
 
 def query_route_relations_pk() -> OverpassResult:
-    """Fetch all `type=route route=power` relations in PK with member ids.
+    """Fetch all `type=route route=power` relations in IN with member ids.
 
     Lets us propagate voltage from a relation to its member ways when the
     way itself lacks a voltage tag.
@@ -58,12 +58,12 @@ def query_route_relations_pk() -> OverpassResult:
 
 
 def query_substations_pk() -> OverpassResult:
-    """Fetch all `power=substation` features in Pakistan."""
+    """Fetch all `power=substation` features in India."""
     return _fetch_or_cache("substations", _substations_query(), "substations")
 
 
 def query_generation_pk() -> OverpassResult:
-    """Fetch all `power=plant` features in Pakistan (NOT individual generators
+    """Fetch all `power=plant` features in India (NOT individual generators
     like rooftop solar; those are filtered out at the merge stage)."""
     return _fetch_or_cache("generation", _generation_query(), "generation")
 
@@ -71,11 +71,11 @@ def query_generation_pk() -> OverpassResult:
 def _all_lines_query() -> str:
     return f"""
     [out:json][timeout:{REQUEST_TIMEOUT_S - 30}];
-    area["ISO3166-1"="PK"][admin_level=2]->.pk;
+    area["ISO3166-1"="IN"][admin_level=2]->.in;
     (
-      way(area.pk)["power"="line"];
-      way(area.pk)["power"="minor_line"];
-      way(area.pk)["power"="cable"];
+      way(area.in)["power"="line"];
+      way(area.in)["power"="minor_line"];
+      way(area.in)["power"="cable"];
     );
     out geom tags;
     """.strip()
@@ -86,8 +86,8 @@ def _route_relations_query() -> str:
     # (way ids), which is exactly what we need for voltage propagation.
     return f"""
     [out:json][timeout:{REQUEST_TIMEOUT_S - 30}];
-    area["ISO3166-1"="PK"][admin_level=2]->.pk;
-    relation(area.pk)["type"="route"]["route"="power"];
+    area["ISO3166-1"="IN"][admin_level=2]->.in;
+    relation(area.in)["type"="route"]["route"="power"];
     out body;
     """.strip()
 
@@ -95,11 +95,11 @@ def _route_relations_query() -> str:
 def _substations_query() -> str:
     return f"""
     [out:json][timeout:{REQUEST_TIMEOUT_S - 30}];
-    area["ISO3166-1"="PK"][admin_level=2]->.pk;
+    area["ISO3166-1"="IN"][admin_level=2]->.in;
     (
-      node(area.pk)["power"="substation"];
-      way(area.pk)["power"="substation"];
-      relation(area.pk)["power"="substation"];
+      node(area.in)["power"="substation"];
+      way(area.in)["power"="substation"];
+      relation(area.in)["power"="substation"];
     );
     out center tags;
     """.strip()
@@ -108,11 +108,11 @@ def _substations_query() -> str:
 def _generation_query() -> str:
     return f"""
     [out:json][timeout:{REQUEST_TIMEOUT_S - 30}];
-    area["ISO3166-1"="PK"][admin_level=2]->.pk;
+    area["ISO3166-1"="IN"][admin_level=2]->.in;
     (
-      node(area.pk)["power"="plant"];
-      way(area.pk)["power"="plant"];
-      relation(area.pk)["power"="plant"];
+      node(area.in)["power"="plant"];
+      way(area.in)["power"="plant"];
+      relation(area.in)["power"="plant"];
     );
     out center tags;
     """.strip()

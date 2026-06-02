@@ -5,7 +5,7 @@
 
 const VOLTAGE_CLASSES_URL = "data/voltage_classes.json";
 const META_URL = "data/meta.json";
-const PK_BBOX = [60.8, 23.5, 77.0, 37.1]; // [west, south, east, north]
+const IN_BBOX = [68.1, 6.7, 97.4, 35.5]; // India bbox [west, south, east, north]
 
 const SUBSTATION_COLOR = "#ffd166";
 const GENERATION_COLOR = "#ef476f";
@@ -48,7 +48,7 @@ async function main() {
   const map = new maplibregl.Map({
     container: "map",
     style: BASE_STYLE,
-    bounds: PK_BBOX,
+    bounds: IN_BBOX,
     fitBoundsOptions: { padding: 30 },
   });
   map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-left");
