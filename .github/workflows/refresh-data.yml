@@ -50,18 +50,18 @@ jobs:
       - name: Show diff summary
         run: |
           echo "Changed files:"
-          git status --short site/data/
+          git status --short docs/data/  # INTHA EDATHULA MAATHIYACHU
 
       - name: Commit refreshed data
         run: |
-          git config user.name "opengridpk-bot"
-          git config user.email "opengridpk-bot@users.noreply.github.com"
+          git config user.name "opengridin-bot"  # BOT PERU MAATHIYACHU
+          git config user.email "opengridin-bot@users.noreply.github.com"
 
-          if git diff --quiet site/data/; then
+          if git diff --quiet docs/data/; then  # INTHA EDATHULA MAATHIYACHU
             echo "No data changes to commit."
             exit 0
           fi
 
-          git add site/data/
+          git add docs/data/  # INTHA EDATHULA MAATHIYACHU
           git commit -m "data: monthly refresh $(date -u +%Y-%m-%d)"
           git push
